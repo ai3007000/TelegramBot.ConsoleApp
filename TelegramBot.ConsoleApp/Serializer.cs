@@ -12,8 +12,9 @@ namespace TelegramBot.ConsoleApp
     /// </summary>
     class Serializer : ISerializer
     {
-        private readonly XmlSerializer serializer  = new XmlSerializer(typeof(Person[]));
+        private XmlSerializer serializer { get; set; } = new XmlSerializer(typeof(Person[]));
         private ILogger logger { get; set; } = new Logger();
+        private string pathDirectory { get; set; } = @"E:\Програмирование\C#\TelegramBot.ConsoleApp\TelegramBot.ConsoleApp\DataBase";
         private string path { get; set; }
         public Serializer(string path)
         {
@@ -27,10 +28,14 @@ namespace TelegramBot.ConsoleApp
         void ISerializer.Serialize(Person[] Collection)
         {
             logger.Event("Процесс сериализации коллекции запущен.");
-
-            using (FileStream file = new FileStream(this.path, FileMode.OpenOrCreate))
+            if (!Directory.Exists(this.pathDirectory))
             {
-                this.serializer.Serialize(file, Collection[0]);
+                Directory.CreateDirectory(this.pathDirectory);
+            }
+        
+            using (FileStream file = new FileStream(Path.Combine(this.pathDirectory, this.path), FileMode.OpenOrCreate))
+            {
+                this.serializer.Serialize(file, Collection);
             }
 
             logger.Event("Процесс сериализации коллекции завершён.");
@@ -44,9 +49,9 @@ namespace TelegramBot.ConsoleApp
         Person[]? ISerializer.DeSerialize()
         {
             logger.Event("Процесс десериализации файла запущен.");
-            Person[] newPeople;
+            Person[]? newPeople;
 
-            using (FileStream file = new FileStream(this.path, FileMode.OpenOrCreate))
+            using (FileStream file = new FileStream(Path.Combine(this.pathDirectory, this.path), FileMode.OpenOrCreate))
             {
                 newPeople = this.serializer.Deserialize(file) as Person[];
             }
