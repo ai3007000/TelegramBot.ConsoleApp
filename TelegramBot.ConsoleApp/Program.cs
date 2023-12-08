@@ -10,8 +10,15 @@ namespace TelegramBot.ConsoleApp
     {
         static void Main(string[] args)
         {
-            IWorker worker = new Worker();
-            worker.Work();
+            try
+            {
+                IWorker worker = new Worker();
+                worker.Work();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

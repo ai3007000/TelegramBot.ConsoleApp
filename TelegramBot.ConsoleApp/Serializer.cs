@@ -30,7 +30,7 @@ namespace TelegramBot.ConsoleApp
 
             using (FileStream file = new FileStream(this.path, FileMode.OpenOrCreate))
             {
-                this.serializer.Serialize(file, Collection);
+                this.serializer.Serialize(file, Collection[0]);
             }
 
             logger.Event("Процесс сериализации коллекции завершён.");

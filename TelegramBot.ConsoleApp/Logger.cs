@@ -12,17 +12,29 @@ namespace TelegramBot.ConsoleApp
     /// </summary>
     class Logger : ILogger
     {
-        private DateTime time { get; set; } = DateTime.Now;
+        private readonly string path = @"E:\Програмирование\C#\TelegramBot.ConsoleApp\TelegramBot.ConsoleApp\DataBase";
         /// <summary>
         /// Обработчик события
         /// </summary>
         /// <param name="message">Сообщение</param>
         void ILogger.Event(string message)
         {
-            using (StreamWriter file = new StreamWriter("Events.txt", true))
+            if (Directory.Exists(path))
             {
-                file.WriteLine($"Сообщение: {message}\tВремя: {this.time}"); // Запись события в БД
+                using (StreamWriter file = new StreamWriter($"{this.path}\\Events.txt", true))
+                {
+                    file.WriteLine($"Сообщение: {message}\tВремя: {DateTime.Now}"); // Запись события в БД
+                }
             }
+            else
+            {
+                Directory.CreateDirectory(path);
+                using (StreamWriter file = new StreamWriter($"{this.path}\\Events.txt", true))
+                {
+                    file.WriteLine($"Сообщение: {message}\tВремя: {DateTime.Now}"); // Запись события в БД
+                }
+            }
+            
         }
         /// <summary>
         /// Обработчик ошибки
@@ -30,9 +42,20 @@ namespace TelegramBot.ConsoleApp
         /// <param name="ex">Исключение</param>
         void ILogger.Error(Exception ex)
         {
-            using (StreamWriter file = new StreamWriter("Errors.txt", true))
+            if (Directory.Exists(path))
             {
-                file.WriteLine($"Сообщение: {ex.Message}\tВремя: {this.time}"); // Запись ошибки в БД
+                using (StreamWriter file = new StreamWriter($"{this.path}\\Errors.txt", true))
+                {
+                    file.WriteLine($"Сообщение: {ex.Message}\tВремя: {DateTime.Now}"); // Запись события в БД
+                }
+            }
+            else
+            {
+                Directory.CreateDirectory(path);
+                using (StreamWriter file = new StreamWriter($"{this.path}\\Errors.txt", true))
+                {
+                    file.WriteLine($"Сообщение: {ex.Message}\tВремя: {DateTime.Now}"); // Запись события в БД
+                }
             }
         }
     }
