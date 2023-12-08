@@ -21,7 +21,7 @@ namespace TelegramBot.ConsoleApp
         {
             if (Directory.Exists(path))
             {
-                using (StreamWriter file = new StreamWriter($"{this.path}\\Events.txt", true))
+                using (StreamWriter file = new StreamWriter(Path.Combine(this.path, "Events.txt"), true))
                 {
                     file.WriteLine($"Сообщение: {message}\tВремя: {DateTime.Now}"); // Запись события в БД
                 }
@@ -29,7 +29,7 @@ namespace TelegramBot.ConsoleApp
             else
             {
                 Directory.CreateDirectory(path);
-                using (StreamWriter file = new StreamWriter($"{this.path}\\Events.txt", true))
+                using (StreamWriter file = new StreamWriter(Path.Combine(this.path, "Events.txt"), true))
                 {
                     file.WriteLine($"Сообщение: {message}\tВремя: {DateTime.Now}"); // Запись события в БД
                 }
@@ -44,7 +44,7 @@ namespace TelegramBot.ConsoleApp
         {
             if (Directory.Exists(path))
             {
-                using (StreamWriter file = new StreamWriter($"{this.path}\\Errors.txt", true))
+                using (StreamWriter file = new StreamWriter(Path.Combine(this.path, "Errors.txt"), true))
                 {
                     file.WriteLine($"Сообщение: {ex.Message}\tВремя: {DateTime.Now}"); // Запись события в БД
                 }
@@ -52,7 +52,7 @@ namespace TelegramBot.ConsoleApp
             else
             {
                 Directory.CreateDirectory(path);
-                using (StreamWriter file = new StreamWriter($"{this.path}\\Errors.txt", true))
+                using (StreamWriter file = new StreamWriter(Path.Combine(this.path, "Errors.txt"), true))
                 {
                     file.WriteLine($"Сообщение: {ex.Message}\tВремя: {DateTime.Now}"); // Запись события в БД
                 }
