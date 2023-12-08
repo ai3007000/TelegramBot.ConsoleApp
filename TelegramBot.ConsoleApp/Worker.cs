@@ -16,7 +16,18 @@ namespace TelegramBot.ConsoleApp
         /// </summary>
         void IWorker.Work()
         {
+            Person[] people = new Person[3];
+            people[0] = new Person("Артём", "+76544964");
+            people[1] = new Person("Софья", "654684684");
+            people[2] = new Person("Liara", "561646845");
 
+            ISerializer serializer = new Serializer("Collections.xml");
+            serializer.Serialize(people);
+            Person[] newPeople = serializer.DeSerialize();
+            foreach (var item in newPeople)
+            {
+                Console.WriteLine(item.ToString());
+            }
         }
     }
 }

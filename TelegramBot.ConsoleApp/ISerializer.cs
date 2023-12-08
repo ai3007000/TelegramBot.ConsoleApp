@@ -11,7 +11,7 @@ namespace TelegramBot.ConsoleApp
     /// </summary>
     interface ISerializer
     {
-        void Serialize(string path, Person Collection);
-        Person[] DeSerialize(string path, Person Collection);
+        void Serialize(Person[] Collection);
+        Person[] DeSerialize();
     }
 }

@@ -19,5 +19,9 @@ namespace TelegramBot.ConsoleApp
             this.Name = Name;
             this.NumberOfPhone = NumberOfPhone;
         }
+        public override string ToString()
+        {
+            return $"Имя: {this.Name}\tТел.: {this.NumberOfPhone}";
+        }
     }
 }
