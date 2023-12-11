@@ -26,7 +26,7 @@ namespace TelegramBot.ConsoleApp
 
             using (StreamWriter file = new StreamWriter(Path.Combine(this.path, "Events.txt"), true))
             {
-                file.WriteLine($"Сообщение: {message}\tВремя: {DateTime.Now}"); // Запись события в БД
+                file.WriteLine($"{new string('-', 20)}\nПолучено новое сообщение\nТекст сообщения: {message}\nВремя: {DateTime.Now}\n{new string('-', 20)}"); // Запись события в БД
             }
 
         }

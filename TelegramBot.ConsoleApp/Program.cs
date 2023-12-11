@@ -1,24 +1,36 @@
 ﻿using System;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Security;
-using System.Xml.Serialization;
-using Telegram.Bot.Types;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Telegram.Bot;
+using TelegramBot.ConsoleApp;
 
-namespace TelegramBot.ConsoleApp
+namespace VoiceTexterBot
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static async Task Main()
         {
-            try
-            {
-                IWorker worker = new Worker();
-                worker.Work();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            Console.OutputEncoding = Encoding.Unicode;
+            Messanger ConsoleLog = new Messanger();
+            // Объект, отвечающий за постоянный жизненный цикл приложения
+            var host = new HostBuilder()
+                .ConfigureServices((hostContext, services) => ConfigureServices(services)) // Задаем конфигурацию
+                .UseConsoleLifetime() // Позволяет поддерживать приложение активным в консоли
+                .Build(); // Собираем
+
+            ConsoleLog.SendMessage(new TerminalMessage("Сервис запущен"));
+            // Запускаем сервис
+            await host.RunAsync();
+        }
+
+        static void ConfigureServices(IServiceCollection services)
+        {
+            // Регистрируем объект TelegramBotClient c токеном подключения
+            services.AddSingleton<ITelegramBotClient>(provider => new TelegramBotClient("6806016768:AAHEzpyB7JyRzphljkYmMbfoC0NDfwu5iOc"));
+            // Регистрируем постоянно активный сервис бота
+            services.AddHostedService<Bot>();
         }
     }
 }
