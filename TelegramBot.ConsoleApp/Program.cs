@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Telegram.Bot;
 using TelegramBot.ConsoleApp;
+using TelegramBot.ConsoleApp.Controllers;
 
 namespace VoiceTexterBot
 {
@@ -13,23 +14,25 @@ namespace VoiceTexterBot
         public static async Task Main()
         {
             Console.OutputEncoding = Encoding.Unicode;
-            Messanger ConsoleLog = new Messanger();
             // Объект, отвечающий за постоянный жизненный цикл приложения
             var host = new HostBuilder()
                 .ConfigureServices((hostContext, services) => ConfigureServices(services)) // Задаем конфигурацию
                 .UseConsoleLifetime() // Позволяет поддерживать приложение активным в консоли
                 .Build(); // Собираем
 
-            ConsoleLog.SendMessage(new TerminalMessage("Сервис запущен"));
+            Console.WriteLine("Сервис запущен.");
             // Запускаем сервис
             await host.RunAsync();
         }
-
         static void ConfigureServices(IServiceCollection services)
         {
-            // Регистрируем объект TelegramBotClient c токеном подключения
+            // Подключаем контроллеры сообщений и кнопок
+            services.AddTransient<DefaultMessageController>();
+            services.AddTransient<VoiceMessageController>();
+            services.AddTransient<TextMessageController>();
+            services.AddTransient<InlineKeyboardController>();
+
             services.AddSingleton<ITelegramBotClient>(provider => new TelegramBotClient("6806016768:AAHEzpyB7JyRzphljkYmMbfoC0NDfwu5iOc"));
-            // Регистрируем постоянно активный сервис бота
             services.AddHostedService<Bot>();
         }
     }
