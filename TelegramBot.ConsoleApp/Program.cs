@@ -36,7 +36,7 @@ namespace VoiceTexterBot
 
             // Подключаем контроллеры сообщений и кнопок
             services.AddTransient<DefaultMessageController>();
-            services.AddTransient<VoiceMessageController>();
+            //services.AddTransient<VoiceMessageController>();
             services.AddTransient<TextMessageController>();
             services.AddTransient<InlineKeyboardController>();
 
