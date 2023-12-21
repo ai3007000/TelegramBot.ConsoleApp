@@ -6,15 +6,15 @@ namespace TelegramBot.ConsoleApp.Controllers
     public class DefaultMessageController
     {
         private readonly ITelegramBotClient _telegramClient;
-
+        private Messanger outlook { get; set; } = new Messanger();
         public DefaultMessageController(ITelegramBotClient telegramBotClient)
         {
             _telegramClient = telegramBotClient;
         }
         public async Task Handle(Message message, CancellationToken ct)
         {
-            Console.WriteLine($"Контроллер {GetType().Name} получил сообщение\nТекст сообщения: {message.Text}");
-            await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"Получено текстовое сообщение\nТекст собщения: {message.Text}", cancellationToken: ct);
+            outlook.SendMessage<TerminalMessage>(new TerminalMessage($"Контроллер {GetType().Name} получил сообщение"));
+            await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"Получено сообщение не поддерживаемого формата", cancellationToken: ct);
         }
     }
 }
