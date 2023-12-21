@@ -1,6 +1,7 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using TelegramBot.ConsoleApp.Configuration;
 using TelegramBot.ConsoleApp.Services;
 
 namespace TelegramBot.ConsoleApp.Controllers
@@ -10,6 +11,7 @@ namespace TelegramBot.ConsoleApp.Controllers
         private Messanger outlook { get; set; } = new Messanger();
         private readonly IStorage _memoryStorage;
         private readonly ITelegramBotClient _telegramClient;
+        private AppSettings _appsetting { get; set; }
 
         public InlineKeyboardController(ITelegramBotClient telegramBotClient, IStorage memoryStorage)
         {
