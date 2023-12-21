@@ -14,13 +14,14 @@ namespace VoiceTexterBot
         public static async Task Main()
         {
             Console.OutputEncoding = Encoding.Unicode;
+            Messanger outlook = new Messanger();
             // Объект, отвечающий за постоянный жизненный цикл приложения
             var host = new HostBuilder()
                 .ConfigureServices((hostContext, services) => ConfigureServices(services)) // Задаем конфигурацию
                 .UseConsoleLifetime() // Позволяет поддерживать приложение активным в консоли
                 .Build(); // Собираем
 
-            Console.WriteLine("Сервис запущен.");
+            outlook.SendMessage<TerminalMessage>(new TerminalMessage("Сервис запущен."));
             // Запускаем сервис
             await host.RunAsync();
         }

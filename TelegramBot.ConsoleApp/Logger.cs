@@ -26,7 +26,8 @@ namespace TelegramBot.ConsoleApp
 
             using (StreamWriter file = new StreamWriter(Path.Combine(this.path, "Events.txt"), true))
             {
-                file.WriteLine($"{new string('-', 20)}\nПолучено новое сообщение\nТекст сообщения: {message}\nВремя: {DateTime.Now}\n{new string('-', 20)}"); // Запись события в БД
+                // Запись события в БД
+                file.WriteLine($"{new string('-', 20)}\nПолучено новое сообщение\nТекст сообщения: {message}\nВремя: {DateTime.Now}\n{new string('-', 20)}");
             }
 
         }
@@ -43,7 +44,8 @@ namespace TelegramBot.ConsoleApp
 
             using (StreamWriter file = new StreamWriter(Path.Combine(this.path, "Errors.txt"), true))
             {
-                file.WriteLine($"Сообщение: {ex.Message}\tВремя: {DateTime.Now}"); // Запись события в БД
+                // Запись события в БД
+                file.WriteLine($"Сообщение: {ex.Message}\tВремя: {DateTime.Now}");
             }
         }
     }

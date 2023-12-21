@@ -5,6 +5,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Polling;
 using TelegramBot.ConsoleApp.Controllers;
+using TelegramBot.ConsoleApp;
 
 namespace VoiceTexterBot
 {
@@ -18,6 +19,8 @@ namespace VoiceTexterBot
         private TextMessageController _textMessageController;
         private VoiceMessageController _voiceMessageController;
         private DefaultMessageController _defaultMessageController;
+        private Messanger outlook { get; set; } = new Messanger();
+        private ILogger logger { get; set; } = new Logger();
 
         public Bot(
             ITelegramBotClient telegramClient,
@@ -41,7 +44,7 @@ namespace VoiceTexterBot
                 new ReceiverOptions() { AllowedUpdates = { } }, // Здесь выбираем, какие обновления хотим получать. В данном случае - разрешены все
                 cancellationToken: stoppingToken);
 
-            Console.WriteLine("Бот запущен.");
+            outlook.SendMessage<TerminalMessage>(new TerminalMessage("Бот запущен."));
         }
 
         async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
@@ -79,9 +82,8 @@ namespace VoiceTexterBot
                     => $"Telegram API Error:\n[{apiRequestException.ErrorCode}]\n{apiRequestException.Message}",
                 _ => exception.ToString()
             };
-
-            Console.WriteLine(errorMessage);
-            Console.WriteLine("Ожидаем 10 секунд перед повторным подключением.");
+            logger.Error(new Exception(errorMessage));
+            outlook.SendMessage<TerminalMessage>(new TerminalMessage("Ожидаем 10 секунд перед повторным подключением."));
             Thread.Sleep(10000);
 
             return Task.CompletedTask;
