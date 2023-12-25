@@ -15,6 +15,7 @@ namespace TelegramBot.ConsoleApp.Controllers
         }
         public async Task Handle(Message message, CancellationToken ct)
         {
+            Functions func = new Functions("1");
             outlook.SendMessage<TerminalMessage>(new TerminalMessage($"Контроллер {GetType().Name} получил сообщение\nТекст сообщения: {message.Text}"));
             switch (message.Text)
             {
@@ -34,8 +35,15 @@ namespace TelegramBot.ConsoleApp.Controllers
 
                     break;
                 default:
-                    await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"В вашем сообщении: {message.Text.Length} символов", cancellationToken: ct);
-                    // await _telegramClient.SendTextMessageAsync(message.Chat.Id, "Отправьте аудио для превращения в текст.", cancellationToken: ct);
+                    try
+                    {
+                        string str = func.SplitNumbers(message.Text);
+                        await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"{str}", cancellationToken: ct);
+                    }
+                    catch (Exception ex)
+                    {
+                        await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"В вашем сообщении: {message.Text.Length} символов", cancellationToken: ct);
+                    }
                     break;
             }
 

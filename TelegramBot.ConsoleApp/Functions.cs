@@ -28,5 +28,15 @@ namespace TelegramBot.ConsoleApp
             }
             return $"Сумма чисел {sum}";
         }
+        public string SplitNumbers(string str)
+        {
+            List<int> arr = str.Split(' ').Select(x => Convert.ToInt32(x)).ToList();
+            int sum = 0;
+            foreach (var item in arr)
+            {
+                sum += item;
+            }
+            return $"Сумма чисел {sum}";
+        }
     }
 }
