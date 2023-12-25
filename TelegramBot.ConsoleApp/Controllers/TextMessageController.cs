@@ -33,7 +33,6 @@ namespace TelegramBot.ConsoleApp.Controllers
                        , cancellationToken: ct, parseMode: ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(buttons));
 
                     break;
-                
                 default:
                     await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"В вашем сообщении: {message.Text.Length} символов", cancellationToken: ct);
                     // await _telegramClient.SendTextMessageAsync(message.Chat.Id, "Отправьте аудио для превращения в текст.", cancellationToken: ct);

@@ -32,11 +32,7 @@ namespace VoiceTexterBot
             AppSettings appSettings = BuildAppSettings();
             services.AddSingleton(BuildAppSettings());
 
-            services.AddSingleton<IFileHandler, AudioFileHandler>();
-
             // Подключаем контроллеры сообщений и кнопок
-            services.AddTransient<DefaultMessageController>();
-            //services.AddTransient<VoiceMessageController>();
             services.AddTransient<TextMessageController>();
             services.AddTransient<InlineKeyboardController>();
 
@@ -51,9 +47,6 @@ namespace VoiceTexterBot
             {
                 DownloadsFolder = @"E:\Програмирование\C#\TelegramBot.ConsoleApp\TelegramBot.ConsoleApp\DataBase",
                 BotToken = "6806016768:AAHEzpyB7JyRzphljkYmMbfoC0NDfwu5iOc",
-                AudioFileName = "audio",
-                InputAudioFormat = "ogg",
-                OutputAudioFormat = "wav"
             };
         }
     }

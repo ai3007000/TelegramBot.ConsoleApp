@@ -17,22 +17,17 @@ namespace TelegramBot.ConsoleApp
         private InlineKeyboardController _inlineKeyboardController;
         private TextMessageController _textMessageController;
         //private VoiceMessageController _voiceMessageController;
-        private DefaultMessageController _defaultMessageController;
         private Messanger outlook { get; set; } = new Messanger();
         private ILogger logger { get; set; } = new Logger();
 
         public Bot(
             ITelegramBotClient telegramClient,
             InlineKeyboardController inlineKeyboardController,
-            TextMessageController textMessageController,
-            // VoiceMessageController voiceMessageController,
-            DefaultMessageController defaultMessageController)
+            TextMessageController textMessageController)
         {
             _telegramClient = telegramClient;
             _inlineKeyboardController = inlineKeyboardController;
             _textMessageController = textMessageController;
-            //_voiceMessageController = voiceMessageController;
-            _defaultMessageController = defaultMessageController;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -60,14 +55,8 @@ namespace TelegramBot.ConsoleApp
             {
                 switch (update.Message!.Type)
                 {
-                    case MessageType.Voice:
-                        //await _voiceMessageController.Handle(update.Message, cancellationToken);
-                        return;
                     case MessageType.Text:
                         await _textMessageController.Handle(update.Message, cancellationToken);
-                        return;
-                    default:
-                        await _defaultMessageController.Handle(update.Message, cancellationToken);
                         return;
                 }
             }
