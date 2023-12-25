@@ -28,18 +28,19 @@ namespace TelegramBot.ConsoleApp.Controllers
             _memoryStorage.GetSession(callbackQuery.From.Id).LanguageCode = callbackQuery.Data;
 
             // Генерим информационное сообщение
-            string languageText = callbackQuery.Data switch
+            string Function = callbackQuery.Data switch
             {
-                "ru" => " Русский",
-                "en" => " Английский",
+                "quantity" => "Подсчёт символов",
+                "sum" => "Сумма чисел",
                 _ => String.Empty
             };
 
             outlook.SendMessage<TerminalMessage>(new TerminalMessage($"Контроллер {GetType().Name} обнаружил нажатие на кнопку {callbackQuery.Data}"));
             // Отправляем в ответ уведомление о выборе
             await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id,
-                $"<b>Язык аудио - {languageText}.{Environment.NewLine}</b>" +
+                $"<b>Функция - {Function}.{Environment.NewLine}</b>" +
                 $"{Environment.NewLine}Можно поменять в главном меню.", cancellationToken: ct, parseMode: ParseMode.Html);
+
         }
     }
 }

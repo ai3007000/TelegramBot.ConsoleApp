@@ -1,2 +1,8 @@
 Сообщение: There was an error generating the XML document.	Время: 08.12.2023 17:42:30
 Сообщение: There was an error generating the XML document.	Время: 08.12.2023 17:44:55
+Сообщение: Telegram API Error:
+[400]
+Bad Request: can't parse entities: Can't find end tag corresponding to start tag b	Время: 25.12.2023 15:52:00
+Сообщение: Telegram API Error:
+[400]
+Bad Request: can't parse entities: Can't find end tag corresponding to start tag b	Время: 25.12.2023 15:52:19
