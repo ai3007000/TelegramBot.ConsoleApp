@@ -40,7 +40,7 @@ namespace TelegramBot.ConsoleApp.Controllers
                         string str = func.SplitNumbers(message.Text);
                         await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"{str}", cancellationToken: ct);
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"В вашем сообщении: {message.Text.Length} символов", cancellationToken: ct);
                     }
