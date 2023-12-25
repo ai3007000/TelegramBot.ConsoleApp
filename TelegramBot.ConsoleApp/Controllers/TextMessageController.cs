@@ -15,7 +15,7 @@ namespace TelegramBot.ConsoleApp.Controllers
         }
         public async Task Handle(Message message, CancellationToken ct)
         {
-            Functions func = new Functions("1");
+            Functions func = new Functions();
             outlook.SendMessage<TerminalMessage>(new TerminalMessage($"Контроллер {GetType().Name} получил сообщение\nТекст сообщения: {message.Text}"));
             switch (message.Text)
             {
