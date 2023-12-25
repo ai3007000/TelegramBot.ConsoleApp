@@ -45,7 +45,6 @@ namespace VoiceTexterBot
         {
             return new AppSettings()
             {
-                DownloadsFolder = @"E:\Програмирование\C#\TelegramBot.ConsoleApp\TelegramBot.ConsoleApp\DataBase",
                 BotToken = "6806016768:AAHEzpyB7JyRzphljkYmMbfoC0NDfwu5iOc",
             };
         }
