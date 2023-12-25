@@ -30,16 +30,15 @@ namespace TelegramBot.ConsoleApp.Controllers
             // Генерим информационное сообщение
             string Function = callbackQuery.Data switch
             {
-                "quantity" => "Подсчёт символов",
-                "sum" => "Сумма чисел",
+                "quantity" => "/quantity",
+                "sum" => "/sum",
                 _ => String.Empty
             };
 
             outlook.SendMessage<TerminalMessage>(new TerminalMessage($"Контроллер {GetType().Name} обнаружил нажатие на кнопку {callbackQuery.Data}"));
             // Отправляем в ответ уведомление о выборе
             await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id,
-                $"<b>Функция - {Function}.{Environment.NewLine}</b>" +
-                $"{Environment.NewLine}Можно поменять в главном меню.", cancellationToken: ct, parseMode: ParseMode.Html);
+                $"{Function}", cancellationToken: ct, parseMode: ParseMode.Html);
 
         }
     }

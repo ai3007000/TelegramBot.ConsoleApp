@@ -34,6 +34,13 @@ namespace TelegramBot.ConsoleApp.Controllers
                        , cancellationToken: ct, parseMode: ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(buttons));
 
                     break;
+                case "/quantity":
+                   
+                    await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"Введите строку", cancellationToken: ct);
+                    break;
+                case "/sum":
+                    await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"Введите числа через пробел", cancellationToken: ct);
+                    break;
                 default:
                     try
                     {
